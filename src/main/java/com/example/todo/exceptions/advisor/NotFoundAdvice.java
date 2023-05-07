@@ -1,4 +1,4 @@
-package com.example.todo.exceptions.types;
+package com.example.todo.exceptions.advisor;
 
 import com.example.todo.exceptions.cases.AuthorNotFoundException;
 import com.example.todo.exceptions.cases.TodoNotFoundException;
