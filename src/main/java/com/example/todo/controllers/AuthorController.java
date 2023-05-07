@@ -6,6 +6,8 @@ import com.example.todo.modelAssembler.AuthorModelAssembler;
 import com.example.todo.repositories.AuthorRepository;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.IanaLinkRelations;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,8 +36,12 @@ public class AuthorController {
         return CollectionModel.of(employees, linkTo(methodOn(AuthorController.class).all()).withSelfRel());
     }
     @PostMapping("/authors")
-    Author newAuthor(@RequestBody Author newEmployee) {
-        return repository.save(newEmployee);
+    ResponseEntity<Author> newAuthor(@RequestBody Author newEmployee) {
+        EntityModel<Author> entityModel = assembler.toModel(repository.save(newEmployee));
+
+        return ResponseEntity //
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) //
+                .body(entityModel.getContent());
     }
 
     // Single item
@@ -49,9 +55,9 @@ public class AuthorController {
     }
 
     @PutMapping("/authors/{id}")
-    Author replaceAuthor(@RequestBody Author newEmployee, @PathVariable Long id) {
+    ResponseEntity<Author> replaceAuthor(@RequestBody Author newEmployee, @PathVariable Long id) {
 
-        return repository.findById(id)
+        Author updatedAuthor = repository.findById(id)
                 .map(employee -> {
                     employee.setName(newEmployee.getName());
                     return repository.save(employee);
@@ -60,10 +66,18 @@ public class AuthorController {
                     newEmployee.setId(id);
                     return repository.save(newEmployee);
                 });
+
+        EntityModel<Author> entityModel = assembler.toModel(updatedAuthor);
+
+        return ResponseEntity //
+                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) //
+                .body(entityModel.getContent());
     }
 
     @DeleteMapping("/authors/{id}")
-    void deleteAuthor(@PathVariable Long id) {
+    ResponseEntity<?> deleteAuthor(@PathVariable Long id) {
         repository.deleteById(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
