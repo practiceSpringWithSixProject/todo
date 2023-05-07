@@ -2,23 +2,18 @@ package com.example.todo.controllers;
 
 import com.example.todo.entities.Author;
 import com.example.todo.exceptions.cases.AuthorNotFoundException;
-import com.example.todo.modelAssembler.AuthorModelAssembler;
 import com.example.todo.repositories.AuthorRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 public class AuthorController {
     private  final AuthorRepository repository;
-    private final AuthorModelAssembler assembler;
 
-    AuthorController(AuthorRepository repository, AuthorModelAssembler assembler) {
+    AuthorController(AuthorRepository repository) {
         this.repository = repository;
-        this.assembler = assembler;
     }
 
     @GetMapping("/authors")

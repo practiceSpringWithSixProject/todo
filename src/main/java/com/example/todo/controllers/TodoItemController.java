@@ -3,9 +3,7 @@ package com.example.todo.controllers;
 import com.example.todo.dtos.requests.TodoItemRequestDTO;
 import com.example.todo.entities.TodoItem;
 import com.example.todo.exceptions.cases.TodoNotFoundException;
-import com.example.todo.modelAssembler.TodoItemModelAssembler;
 import com.example.todo.services.TodoItemService;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,12 +12,10 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 
 @RestController
 public class TodoItemController {
-    private final TodoItemModelAssembler assembler;
     private final TodoItemService service;
 
-    TodoItemController(TodoItemService service, TodoItemModelAssembler assembler) {
+    TodoItemController(TodoItemService service) {
         this.service = service;
-        this.assembler = assembler;
     }
 
     @GetMapping("/todoItem")

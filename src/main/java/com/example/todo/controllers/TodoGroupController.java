@@ -2,11 +2,7 @@ package com.example.todo.controllers;
 
 import com.example.todo.entities.TodoGroup;
 import com.example.todo.exceptions.cases.TodoGroupNotFoundException;
-import com.example.todo.modelAssembler.TodoGroupModelAssembler;
 import com.example.todo.repositories.TodoGroupRepository;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.IanaLinkRelations;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,11 +12,9 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 @RestController
 public class TodoGroupController {
     private  final TodoGroupRepository repository;
-    private final TodoGroupModelAssembler assembler;
 
-    TodoGroupController(TodoGroupRepository repository, TodoGroupModelAssembler assembler) {
+    TodoGroupController(TodoGroupRepository repository) {
         this.repository = repository;
-        this.assembler = assembler;
     }
 
     @GetMapping("/todoGroup")
