@@ -11,6 +11,10 @@ public class Author {
     private @Id @GeneratedValue Long id;
     private String name;
 
+    public Author() {
+
+    }
+
     public Author(String bilboBaggins) {
         this.name = bilboBaggins;
     }
