@@ -4,12 +4,12 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-@Data
 @NoArgsConstructor
 @Entity
 public class TodoGroup  {
@@ -20,8 +20,29 @@ public class TodoGroup  {
 
     private String name;
 
-    @OneToMany(mappedBy = "todoGroup", cascade = CascadeType.DETACH)
-    private List<TodoItem> todoItems = new ArrayList<TodoItem>();
+    @OneToMany(mappedBy = "todoGroup", fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
+    private List<TodoItem> todoItems = new ArrayList<>();
+
+    public TodoGroup(String name) {
+        this.name = name;
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -29,11 +50,9 @@ public class TodoGroup  {
             return true;
         }
 
-        if (!(o instanceof TodoGroup)) {
+        if (!(o instanceof TodoGroup todoGroup)) {
             return false;
         }
-
-        TodoGroup todoGroup = (TodoGroup) o;
 
         return Objects.equals(this.id, todoGroup.id) && Objects.equals(this.name, todoGroup.name);
     }
@@ -45,6 +64,6 @@ public class TodoGroup  {
 
     @Override
     public String toString() {
-        return "Author{" + "id=" + this.id + ", name='" + this.name + '\'' + '}';
+        return "TodoGroup{" + "id=" + this.id + ", name='" + this.name + '\'' + '}';
     }
 }

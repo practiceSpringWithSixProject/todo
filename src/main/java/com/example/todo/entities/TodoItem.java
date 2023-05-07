@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Entity
 public class TodoItem {
@@ -31,12 +32,12 @@ public class TodoItem {
     private String content;
 
     @Setter
-    @ManyToOne(targetEntity = Author.class, fetch = FetchType.EAGER)
+    @ManyToOne(targetEntity = Author.class, fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
     @JoinColumn(name = "author_id")
     private Author author;
 
     @Setter
-    @ManyToOne(targetEntity =  TodoGroup.class, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @ManyToOne(targetEntity =  TodoGroup.class, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "todoGroup_id")
     private TodoGroup todoGroup;
 

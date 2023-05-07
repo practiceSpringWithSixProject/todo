@@ -1,89 +1,56 @@
 package com.example.todo.controllers;
 
-import com.example.todo.entities.Author;
+import com.example.todo.dtos.requests.TodoItemRequestDTO;
 import com.example.todo.entities.TodoItem;
-import com.example.todo.exceptions.cases.AuthorNotFoundException;
 import com.example.todo.exceptions.cases.TodoNotFoundException;
-import com.example.todo.modelAssembler.AuthorModelAssembler;
 import com.example.todo.modelAssembler.TodoItemModelAssembler;
-import com.example.todo.repositories.AuthorRepository;
-import com.example.todo.repositories.TodoItemRepository;
-import org.springframework.hateoas.CollectionModel;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.IanaLinkRelations;
+import com.example.todo.services.TodoItemService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 public class TodoItemController {
-    private  final TodoItemRepository repository;
     private final TodoItemModelAssembler assembler;
+    private final TodoItemService service;
 
-    TodoItemController(TodoItemRepository repository, TodoItemModelAssembler assembler) {
-        this.repository = repository;
+    TodoItemController(TodoItemService service, TodoItemModelAssembler assembler) {
+        this.service = service;
         this.assembler = assembler;
     }
 
     @GetMapping("/todoItem")
-    public CollectionModel<EntityModel<TodoItem>> all() {
+    public List<TodoItem> all() {
 
-        List<EntityModel<TodoItem>> employees = repository.findAll().stream() //
-                .map(assembler::toModel) //
-                .collect(Collectors.toList());
-
-        return CollectionModel.of(employees, linkTo(methodOn(AuthorController.class).all()).withSelfRel());
+        return service.list();
     }
 
     @PostMapping("/todoItem")
-    ResponseEntity<TodoItem> newEntity(@RequestBody TodoItem newTodoItem) {
-        EntityModel<TodoItem> entityModel = assembler.toModel(repository.save(newTodoItem));
+    TodoItem newEntity(@RequestBody TodoItemRequestDTO newTodoItem) {
+        TodoItem createdEntity = service.create(newTodoItem);
 
-        return ResponseEntity //
-                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) //
-                .body(entityModel.getContent());
+        return createdEntity;
     }
 
     // Single item
 
     @GetMapping("/todoItem/{id}")
-    public EntityModel<TodoItem> one(@PathVariable Long id) {
-        TodoItem todoItem = repository.findById(id) //
+    public TodoItem one(@PathVariable Long id) {
+        return service.detail(id) //
                 .orElseThrow(() -> new TodoNotFoundException(id));
-
-        return assembler.toModel(todoItem);
     }
 
     @PutMapping("/todoItem/{id}")
-    ResponseEntity<TodoItem> replaceAuthor(@RequestBody TodoItem newTodoItem, @PathVariable Long id) {
+    TodoItem replaceTodoItem(@RequestBody TodoItemRequestDTO newTodoItem, @PathVariable Long id) {
 
-        TodoItem updatedTodoItem = repository.findById(id)
-                .map(todo -> {
-                    todo.setPriority(newTodoItem.getPriority());
-                    todo.setTitle(newTodoItem.getTitle());
-                    todo.setContent(newTodoItem.getContent());
-                    todo.setAuthor(newTodoItem.getAuthor());
-                    todo.setDueDate(newTodoItem.getDueDate());
-                    return repository.save(todo);
-                })
-                .orElseGet(() -> repository.save(newTodoItem));
-
-        EntityModel<TodoItem> entityModel = assembler.toModel(updatedTodoItem);
-
-        return ResponseEntity //
-                .created(entityModel.getRequiredLink(IanaLinkRelations.SELF).toUri()) //
-                .body(entityModel.getContent());
+        return service.upsertById(id, newTodoItem);
     }
 
     @DeleteMapping("/todoItem/{id}")
-    ResponseEntity<?> deleteTodoItem(@PathVariable Long id) {
-        repository.deleteById(id);
-
-        return ResponseEntity.noContent().build();
+    void deleteTodoItem(@PathVariable Long id) {
+        service.deleteById(id);
     }
 }
