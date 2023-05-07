@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +34,11 @@ public class TodoItem {
     @ManyToOne(targetEntity = Author.class, fetch = FetchType.EAGER)
     @JoinColumn(name = "author_id")
     private Author author;
+
+    @Setter
+    @ManyToOne(targetEntity =  TodoGroup.class, fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    @JoinColumn(name = "todoGroup_id")
+    private TodoGroup todoGroup;
 
     @Setter
     private LocalDateTime dueDate;

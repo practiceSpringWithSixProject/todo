@@ -3,6 +3,7 @@ package com.example.todo.controllers;
 import com.example.todo.entities.Author;
 import com.example.todo.entities.TodoItem;
 import com.example.todo.exceptions.cases.AuthorNotFoundException;
+import com.example.todo.exceptions.cases.TodoNotFoundException;
 import com.example.todo.modelAssembler.AuthorModelAssembler;
 import com.example.todo.modelAssembler.TodoItemModelAssembler;
 import com.example.todo.repositories.AuthorRepository;
@@ -53,7 +54,7 @@ public class TodoItemController {
     @GetMapping("/todoItem/{id}")
     public EntityModel<TodoItem> one(@PathVariable Long id) {
         TodoItem todoItem = repository.findById(id) //
-                .orElseThrow(() -> new AuthorNotFoundException(id));
+                .orElseThrow(() -> new TodoNotFoundException(id));
 
         return assembler.toModel(todoItem);
     }
