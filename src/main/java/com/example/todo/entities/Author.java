@@ -1,9 +1,9 @@
 package com.example.todo.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,8 +11,10 @@ public class Author {
     private @Id @GeneratedValue Long id;
     private String name;
 
-    public Author() {
+    @OneToMany(mappedBy = "author", cascade = CascadeType.DETACH)
+    private List<TodoItem> todoItems = new ArrayList<>();
 
+    public Author() {
     }
 
     public Author(String bilboBaggins) {
