@@ -13,9 +13,9 @@ import java.util.Optional;
 @Transactional
 @Service
 public class TodoItemService {
-    private TodoItemRepository todoItemRepository;
-    private AuthorRepository authorRepository;
-    private TodoGroupRepository todoGroupRepository;
+    private final TodoItemRepository todoItemRepository;
+    private final AuthorRepository authorRepository;
+    private final TodoGroupRepository todoGroupRepository;
 
     public TodoItemService(
             TodoItemRepository todoItemRepository,
@@ -47,29 +47,26 @@ public class TodoItemService {
     }
 
     public TodoItem upsertById(Long id, TodoItemRequestDTO itemRequest) {
-       TodoItem updatedTodoItem = todoItemRepository.findById(id)
-               .map(todo -> {
-                   this.apply(todo, itemRequest);
 
-                   return todoItemRepository.save(todo);
-               })
-               .orElseGet(() -> this.create(itemRequest));
+        return todoItemRepository.findById(id)
+                .map(todo -> {
+                    this.apply(todo, itemRequest);
 
-       return updatedTodoItem;
+                    return todoItemRepository.save(todo);
+                })
+                .orElseGet(() -> this.create(itemRequest));
     }
 
     public void deleteById(Long id) {
         todoItemRepository.deleteById(id);
     }
 
-    private TodoItem apply(TodoItem todo, TodoItemRequestDTO itemRequest) {
+    private void apply(TodoItem todo, TodoItemRequestDTO itemRequest) {
         itemRequest.title().ifPresent(todo::setTitle);
         itemRequest.content().ifPresent(todo::setContent);
         itemRequest.dueDate().ifPresent(todo::setDueDate);
         itemRequest.priority().ifPresent((val) -> todo.setPriority(Priority.valueOf(val)));
-        itemRequest.authorId().flatMap(id -> authorRepository.findById(id)).ifPresent(todo::setAuthor);
-        itemRequest.todoGroupId().flatMap(id -> todoGroupRepository.findById(id)).ifPresent(todo::setTodoGroup);
-
-        return todo;
+        itemRequest.authorId().flatMap(authorRepository::findById).ifPresent(todo::setAuthor);
+        itemRequest.todoGroupId().flatMap(todoGroupRepository::findById).ifPresent(todo::setTodoGroup);
     }
 }
