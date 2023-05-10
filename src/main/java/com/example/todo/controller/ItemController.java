@@ -8,28 +8,20 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController("/todo")
+@RestController
 @RequiredArgsConstructor
 public class ItemController {
 
     private final ToDoItemService itemService;
 
-
-    @GetMapping("/items")
-    public List<ToDoItem> readAllMyItems(@RequestParam(value="author") int authorId){
-        return itemService.readAllItem(authorId);
-
+    @PostMapping("/items")
+    public Long createItem(@RequestBody ToDoItemDto requestDto,Long authorId){
+        return itemService.createItem(requestDto,authorId);
     }
 
     @GetMapping("/items/read")
-    public ToDoItemDto readOneItem(@RequestParam(value="itemId") int itemId){
+    public Long readOneItem(@RequestParam(value="itemId") Long itemId){
         return itemService.readItem(itemId);
 
-    }
-
-    @PostMapping("/items")
-    public ToDoItemDto createItem(@RequestBody ToDoItemDto itemDto){
-
-        return itemService.createItem(itemDto);
     }
 }
