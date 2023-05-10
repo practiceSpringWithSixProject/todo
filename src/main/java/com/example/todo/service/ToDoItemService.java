@@ -1,6 +1,7 @@
 package com.example.todo.service;
 
 import com.example.todo.dto.ToDoItemDto;
+import com.example.todo.model.Author;
 import com.example.todo.model.ToDoItem;
 import com.example.todo.repository.AuthorRepository;
 import com.example.todo.repository.ToDoItemRepository;
@@ -18,8 +19,12 @@ public class ToDoItemService implements ToDoInterface{
 
     // CREATE METHOD
     @Override
-    public Long createItem(ToDoItemDto doItemDto,Long userId) {
-        ToDoItem newItem = doItemDto.dtoToEntity(doItemDto);
+    public Long createItem(ToDoItemDto doItemDto, Long userId) {
+        System.out.println("----------2-----------------");
+        Author foundAuthor = authorRepository.findById(userId).orElseThrow(()->new IllegalArgumentException("회원정보가 없습니다"));
+
+        ToDoItem newItem = doItemDto.dtoToEntity(doItemDto,foundAuthor);
+        System.out.println(newItem.toString());
         return doItemRepository.save(newItem).getId();
     }
 
