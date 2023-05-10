@@ -14,8 +14,8 @@ public class ItemController {
 
     private final ToDoItemService itemService;
 
-    @PostMapping("/items")
-    public Long createItem(@RequestBody ToDoItemDto requestDto,Long authorId){
+    @PostMapping("/items/{authorId}")
+    public Long createItem(@RequestBody ToDoItemDto requestDto, @PathVariable Long authorId){
         return itemService.createItem(requestDto,authorId);
     }
 

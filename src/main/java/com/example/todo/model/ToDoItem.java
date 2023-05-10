@@ -1,10 +1,14 @@
 package com.example.todo.model;
 
 import jakarta.persistence.*;
-import lombok.*;
-import java.util.Date;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 @Entity
+@Table(name= "todo_items")
 @Getter
 @Setter
 @RequiredArgsConstructor
@@ -26,7 +30,7 @@ public class ToDoItem extends Timestamped {
     private Priority priorityEnum;
 
     @Column
-    private Date deadline;
+    private LocalDateTime deadline;
 
    @Column
     private boolean isCompleted;

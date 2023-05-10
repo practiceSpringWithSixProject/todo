@@ -3,20 +3,19 @@ package com.example.todo.dto;
 import com.example.todo.model.Author;
 import com.example.todo.model.Priority;
 import com.example.todo.model.ToDoItem;
-import com.example.todo.service.ToDoItemService;
-import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Data
 @AllArgsConstructor
 @Setter
+@Getter
 public class ToDoItemDto {
 
     private String title;
@@ -26,16 +25,16 @@ public class ToDoItemDto {
     @Enumerated(EnumType.STRING)
     private Priority priorityEnum;
 
-    private Date deadline;
+    private LocalDateTime deadline;
 
-    @Builder
-    public ToDoItem dtoToEntity(ToDoItemDto dto){
+    public ToDoItem dtoToEntity(ToDoItemDto dto, Author author){
         ToDoItem toDoItem = new ToDoItem();
-        toDoItem.setTitle(dto.title);
-        toDoItem.setContent(dto.content);
-        toDoItem.setPriorityEnum(dto.priorityEnum);
-        toDoItem.setDeadline(dto.deadline);
+        toDoItem.setTitle(dto.getTitle());
+        toDoItem.setContent(dto.getContent());
+        toDoItem.setPriorityEnum(dto.getPriorityEnum());
+        toDoItem.setDeadline(dto.getDeadline());
         toDoItem.setCompleted(false);
+        toDoItem.setAuthor(author);
         return toDoItem;
     }
 }
