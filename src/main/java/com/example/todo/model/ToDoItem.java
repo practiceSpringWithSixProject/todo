@@ -8,7 +8,6 @@ import java.util.Date;
 @Getter
 @Setter
 @RequiredArgsConstructor
-@NoArgsConstructor
 public class ToDoItem extends Timestamped {
 
     @Id
