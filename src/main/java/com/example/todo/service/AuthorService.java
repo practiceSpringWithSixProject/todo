@@ -12,8 +12,12 @@ public class AuthorService {
 
     private final AuthorRepository authorRepository;
 
-    public int createAuthor(AuthorDto authorDto){
+    public Long createAuthor(AuthorDto authorDto){
         Author newAuthor = authorDto.createAuthor();
-        return authorRepository.save(newAuthor).getAuthorId();
+        return authorRepository.save(newAuthor).getId();
+    }
+
+    public Long getAuthorId(Long authorId) {
+        return authorRepository.findById(authorId).orElseThrow(()->new IllegalArgumentException("존재하지 않는 회원입니다.")).getId();
     }
 }

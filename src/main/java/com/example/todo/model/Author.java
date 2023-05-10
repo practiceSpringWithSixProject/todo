@@ -29,13 +29,15 @@ import java.util.List;
 //}
 
 @Entity
+@Table(name = "authors")
 @Getter
+@Setter
 @RequiredArgsConstructor
-
+@NoArgsConstructor
 public class Author extends Timestamped{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int authorId;
+    private Long id;
 
     @Column // 논리적 열 이름 수정
     private String authorName;
@@ -47,8 +49,7 @@ public class Author extends Timestamped{
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @OneToMany
-    @JoinColumn(name = "author_id") // 일치되는 논리적 열 이름으로 수정
+    @OneToMany(mappedBy = "author")// 일치되는 논리적 열 이름으로 수정
     private List<ToDoItem> items;
 
     @Builder
