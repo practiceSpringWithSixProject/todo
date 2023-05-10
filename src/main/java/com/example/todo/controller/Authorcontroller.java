@@ -12,6 +12,15 @@ public class Authorcontroller {
 
 
     //회원가입
+    /*
+    post
+    http://localhost:8080/author
+    {
+      "authorName": "soonwook",
+      "age": 20,
+      "gender": "남자"
+    }
+     */
     @PostMapping("/author")
     public Long createAuthor(@RequestBody AuthorDto authorDto) {
         return authorService.createAuthor(authorDto);

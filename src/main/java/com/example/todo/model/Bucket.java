@@ -8,31 +8,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-
-//@Entity
-//@Getter
-//@RequiredArgsConstructor
-//public class Bucket extends Timestamped{
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private int bucketId;
-//
-//    @ManyToOne
-//    @JoinColumn(name="author_id")
-//    private Author author;
-//
-//    @OneToMany
-//    @JoinColumn(name= "item_id")
-//    private List<ToDoItem> toDoItems;
-//}
-
 @Entity
 @Table(name = "buckets")
 @Getter
 @Setter
 @RequiredArgsConstructor
-@NoArgsConstructor
 public class Bucket extends Timestamped{
 
     @Id

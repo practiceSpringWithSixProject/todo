@@ -5,35 +5,11 @@ import lombok.*;
 
 import java.util.List;
 
-//@Entity
-//@RequiredArgsConstructor
-//@Getter
-//public class Author extends Timestamped{
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private int authorId;
-//
-//    @Column
-//    private String authorName;
-//
-//    @Column
-//    private int age;
-//
-//    @Column
-//    @Enumerated(EnumType.STRING)
-//    private Gender gender;
-//
-//    @OneToMany
-//    @JoinColumn(name="item_id")
-//    private List<ToDoItem> items;
-//}
-
 @Entity
 @Table(name = "authors")
 @Getter
 @Setter
 @RequiredArgsConstructor
-@NoArgsConstructor
 public class Author extends Timestamped{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
