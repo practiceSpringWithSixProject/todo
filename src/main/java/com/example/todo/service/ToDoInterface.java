@@ -17,7 +17,7 @@ public interface ToDoInterface {
   List<ToDoItem> readItemsByAuthorId(Long authorId);
 
   //UPDATE METHODS
-
+  ToDoItem updateTodoItem(ToDoItemDto dto, Long itemId, Long bucketId);
   //DELETE METHODS
 
 }

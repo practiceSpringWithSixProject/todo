@@ -27,6 +27,8 @@ public class ToDoItemDto {
 
   private LocalDateTime deadline;
 
+  private boolean isComplete;
+
   public ToDoItem dtoToEntity(ToDoItemDto dto, Author author) {
     ToDoItem toDoItem = new ToDoItem();
     toDoItem.setTitle(dto.getTitle());

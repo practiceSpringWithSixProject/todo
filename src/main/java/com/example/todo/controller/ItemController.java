@@ -28,4 +28,11 @@ public class ItemController {
   public List<ToDoItem> readItemsByAuthorId(@PathVariable Long authorId) {
     return itemService.readItemsByAuthorId(authorId);
   }
+
+  @PutMapping("/items/{itemId}")
+  public ToDoItem updateItem(@PathVariable Long itemId,
+      @RequestParam(value = "bucketId", required = false) Long bucketId,
+      @RequestBody ToDoItemDto dto) {
+    return itemService.updateTodoItem(dto, itemId, bucketId);
+  }
 }
