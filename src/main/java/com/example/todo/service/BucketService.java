@@ -10,9 +10,11 @@ import com.example.todo.repository.ToDoItemRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class BucketService implements BucketServiceInterface {
 
   private final BucketRepository bucketRepository;
@@ -39,8 +41,15 @@ public class BucketService implements BucketServiceInterface {
   }
 
   @Override
-  public Long updateBucket(BucketDto bucketDto, Long bucketId) {
-    return null;
+  public Bucket updateBucket(BucketDto bucketDto, Long bucketId) {
+    Bucket found = bucketRepository.findById(bucketId)
+        .orElseThrow(() -> new IllegalArgumentException("해당 버켓이 존재하지 않습니다"));
+
+    if (!bucketDto.getBucketName().isBlank() && !bucketDto.getBucketName().isEmpty()) {
+      found.setBucketName(bucketDto.getBucketName());
+    }
+
+    return found;
   }
 
   @Override
