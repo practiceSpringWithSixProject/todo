@@ -39,4 +39,9 @@ public class Authorcontroller {
     public Author updateAuthor(@PathVariable Long authorId, @RequestBody AuthorDto authorDto) {
         return authorService.updateAuthor(authorId,authorDto);
     }
+
+    @DeleteMapping("/author/{authorId}")
+    public Long deleteAuthor(@PathVariable Long authorId){
+        return authorService.deleteAuthor(authorId);
+    }
 }
