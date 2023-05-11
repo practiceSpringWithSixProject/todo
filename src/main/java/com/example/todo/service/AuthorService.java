@@ -15,36 +15,38 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class AuthorService {
 
-    private final AuthorRepository authorRepository;
+  private final AuthorRepository authorRepository;
 
-    public Long createAuthor(AuthorDto authorDto){
-        Author newAuthor = authorDto.createAuthor();
-        return authorRepository.save(newAuthor).getId();
-    }
+  public Long createAuthor(AuthorDto authorDto) {
+    Author newAuthor = authorDto.createAuthor();
+    return authorRepository.save(newAuthor).getId();
+  }
 
-    public Long getAuthorId(Long authorId) {
-        return authorRepository.findById(authorId).orElseThrow(()->new IllegalArgumentException("존재하지 않는 회원입니다.")).getId();
-    }
+  public Long getAuthorId(Long authorId) {
+    return authorRepository.findById(authorId)
+        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다.")).getId();
+  }
 
-    public Author updateAuthor(Long authorId, AuthorDto authorDto) {
-        Author author = authorRepository.findById(authorId).orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
-        String updatedAuthorName = authorDto.getAuthorName();
-        int updatedAge = authorDto.getAge();
-        Gender updatedGender = authorDto.getGender();
-        if(!updatedAuthorName.isEmpty() && !updatedAuthorName.isBlank()){
-            author.setAuthorName(authorDto.getAuthorName());
-        }
-        if(!Integer.toString(updatedAge).isEmpty() && !Integer.toString(updatedAge).isBlank()){
-            author.setAge(authorDto.getAge());
-        }
-        if(!updatedGender.equals(author.getGender())) {
-            author.setGender(authorDto.getGender());
-        }
-        return author;
+  public Author updateAuthor(Long authorId, AuthorDto authorDto) {
+    Author author = authorRepository.findById(authorId)
+        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
+    String updatedAuthorName = authorDto.getAuthorName();
+    int updatedAge = authorDto.getAge();
+    Gender updatedGender = authorDto.getGender();
+    if (!updatedAuthorName.isEmpty() && !updatedAuthorName.isBlank()) {
+      author.setAuthorName(authorDto.getAuthorName());
     }
+    if (!Integer.toString(updatedAge).isEmpty() && !Integer.toString(updatedAge).isBlank()) {
+      author.setAge(authorDto.getAge());
+    }
+    if (!updatedGender.equals(author.getGender())) {
+      author.setGender(authorDto.getGender());
+    }
+    return author;
+  }
 
-    public Long deleteAuthor(Long authorId) {
-        authorRepository.deleteById(authorId);
-        return authorId;
-    }
+  public Long deleteAuthor(Long authorId) {
+    authorRepository.deleteById(authorId);
+    return authorId;
+  }
 }

@@ -7,21 +7,17 @@ import java.util.List;
 
 public interface ToDoInterface {
 
-    //CREATE METHODS
-    Long createItem(ToDoItemDto doItemDto, Long userId);
+  //CREATE METHODS
+  Long createItem(ToDoItemDto doItemDto, Long userId);
 
 
+  //READ METHODS
+  Long readItem(Long itemId);
 
-    //READ METHODS
-    Long readItem(Long itemId);
+  List<ToDoItem> readItemsByAuthorId(Long authorId);
 
-    List<ToDoItem> readItemsByAuthorId(Long authorId);
+  //UPDATE METHODS
 
-    //UPDATE METHODS
-
-
-
-
-    //DELETE METHODS
+  //DELETE METHODS
 
 }
