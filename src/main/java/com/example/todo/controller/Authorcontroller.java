@@ -1,6 +1,7 @@
 package com.example.todo.controller;
 
 import com.example.todo.dto.AuthorDto;
+import com.example.todo.model.Author;
 import com.example.todo.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,11 @@ public class Authorcontroller {
     @GetMapping("/author/{authorId}")
     public Long getAuthorId(@PathVariable Long authorId){
         return authorService.getAuthorId(authorId);
+    }
 
+    //회원 정보 업데이트
+    @PutMapping("/author/{authorId}")
+    public Author updateAuthor(@PathVariable Long authorId, @RequestBody AuthorDto authorDto) {
+        return authorService.updateAuthor(authorId,authorDto);
     }
 }
