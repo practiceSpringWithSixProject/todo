@@ -19,9 +19,13 @@ public class ItemController {
         return itemService.createItem(requestDto,authorId);
     }
 
-    @GetMapping("/items/read")
+    @GetMapping("/items")
     public Long readOneItem(@RequestParam(value="itemId") Long itemId){
         return itemService.readItem(itemId);
+    }
 
+    @GetMapping("/items/all/{authorId}")
+    public List<ToDoItem> readItemsByAuthorId(@PathVariable Long authorId){
+        return itemService.readItemsByAuthorId(authorId);
     }
 }
