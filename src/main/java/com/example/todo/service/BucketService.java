@@ -33,8 +33,9 @@ public class BucketService implements BucketServiceInterface {
   }
 
   @Override
-  public Long getBucket(Long bucketId) {
-    return null;
+  public List<Bucket> getAllBucketsByAuthorId(Long authorId) {
+    return bucketRepository.findAllByAuthor_Id(authorId)
+        .orElseThrow(() -> new IllegalArgumentException("회원 정보가 존재하지 않습니다"));
   }
 
   @Override
