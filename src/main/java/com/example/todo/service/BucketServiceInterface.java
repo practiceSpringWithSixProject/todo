@@ -11,7 +11,7 @@ public interface BucketServiceInterface {
 
   List<Bucket> getAllBucketsByAuthorId(Long authorId);
 
-  Long updateBucket(BucketDto bucketDto, Long bucketId);
+  Bucket updateBucket(BucketDto bucketDto, Long bucketId);
 
   List<ToDoItem> getTodoItems(Long bucketId);
 
