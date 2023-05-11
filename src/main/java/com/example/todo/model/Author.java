@@ -1,5 +1,6 @@
 package com.example.todo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,6 +27,7 @@ public class Author extends Timestamped{
     private Gender gender;
 
     @OneToMany(mappedBy = "author")// 일치되는 논리적 열 이름으로 수정
+    @JsonIgnore // jakarta의 json 순환 참조 방지
     private List<ToDoItem> items;
 
     @Builder
