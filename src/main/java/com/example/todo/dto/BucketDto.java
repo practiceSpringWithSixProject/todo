@@ -3,6 +3,7 @@ package com.example.todo.dto;
 
 import com.example.todo.model.Author;
 import com.example.todo.model.Bucket;
+import com.example.todo.model.ToDoItem;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ public class BucketDto {
   public Bucket bucketDto(String bucketName, Author author) {
     Bucket bucket = new Bucket();
     bucket.setBucketName(bucketName);
+    bucket.setAuthor(author);
     return bucket;
   }
 }

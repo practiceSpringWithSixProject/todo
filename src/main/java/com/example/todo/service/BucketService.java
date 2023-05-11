@@ -7,10 +7,11 @@ import com.example.todo.model.ToDoItem;
 import com.example.todo.repository.AuthorRepository;
 import com.example.todo.repository.BucketRepository;
 import com.example.todo.repository.ToDoItemRepository;
-import lombok.RequiredArgsConstructor;
-
 import java.util.List;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
+@Service
 @RequiredArgsConstructor
 public class BucketService implements BucketServiceInterface {
 
