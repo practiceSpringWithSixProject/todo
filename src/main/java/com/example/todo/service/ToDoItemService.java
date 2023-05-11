@@ -8,6 +8,8 @@ import com.example.todo.repository.ToDoItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class ToDoItemService implements ToDoInterface{
@@ -33,6 +35,12 @@ public class ToDoItemService implements ToDoInterface{
     public Long readItem(Long itemId) {
         return doItemRepository.findById(itemId).orElseThrow(()->new IllegalArgumentException("게시글이 존재하지 않습니다")).getId();
     }
+    @Override
+    public List<ToDoItem> readItemsByAuthorId(Long authorId) {
+        return doItemRepository.findAllByAuthor_Id(authorId).orElseThrow();
+    }
+
+
     //UPDATE METHOD
 
 
