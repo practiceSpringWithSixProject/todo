@@ -5,10 +5,9 @@ import com.example.todo.model.Author;
 import com.example.todo.model.ToDoItem;
 import com.example.todo.repository.AuthorRepository;
 import com.example.todo.repository.ToDoItemRepository;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +25,7 @@ public class ToDoItemService implements ToDoInterface {
         .orElseThrow(() -> new IllegalArgumentException("회원정보가 없습니다"));
 
     ToDoItem newItem = doItemDto.dtoToEntity(doItemDto, foundAuthor);
-    System.out.println(newItem.toString());
+
     return doItemRepository.save(newItem).getId();
   }
 
