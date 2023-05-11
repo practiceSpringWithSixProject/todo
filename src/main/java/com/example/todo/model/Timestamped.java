@@ -12,9 +12,9 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class) // 생성/수정 시간을 자동으로 반영하도록 설정
 public abstract class Timestamped {
 
-    @CreatedDate // 생성일자임을 나타냅니다.
-    private LocalDateTime createdAt;
+  @CreatedDate // 생성일자임을 나타냅니다.
+  private LocalDateTime createdAt;
 
-    @LastModifiedDate // 마지막 수정일자임을 나타냅니다.
-    private LocalDateTime modifiedAt;
+  @LastModifiedDate // 마지막 수정일자임을 나타냅니다.
+  private LocalDateTime modifiedAt;
 }

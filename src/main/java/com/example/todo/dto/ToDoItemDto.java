@@ -18,23 +18,23 @@ import java.time.LocalDateTime;
 @Getter
 public class ToDoItemDto {
 
-    private String title;
+  private String title;
 
-    private String content;
+  private String content;
 
-    @Enumerated(EnumType.STRING)
-    private Priority priorityEnum;
+  @Enumerated(EnumType.STRING)
+  private Priority priorityEnum;
 
-    private LocalDateTime deadline;
+  private LocalDateTime deadline;
 
-    public ToDoItem dtoToEntity(ToDoItemDto dto, Author author){
-        ToDoItem toDoItem = new ToDoItem();
-        toDoItem.setTitle(dto.getTitle());
-        toDoItem.setContent(dto.getContent());
-        toDoItem.setPriorityEnum(dto.getPriorityEnum());
-        toDoItem.setDeadline(dto.getDeadline());
-        toDoItem.setCompleted(false);
-        toDoItem.setAuthor(author);
-        return toDoItem;
-    }
+  public ToDoItem dtoToEntity(ToDoItemDto dto, Author author) {
+    ToDoItem toDoItem = new ToDoItem();
+    toDoItem.setTitle(dto.getTitle());
+    toDoItem.setContent(dto.getContent());
+    toDoItem.setPriorityEnum(dto.getPriorityEnum());
+    toDoItem.setDeadline(dto.getDeadline());
+    toDoItem.setCompleted(false);
+    toDoItem.setAuthor(author);
+    return toDoItem;
+  }
 }

@@ -23,12 +23,4 @@ public class AuthorDto {
                 .gender(gender)
                 .build();
     }
-
-    public Author updateAuthor() {
-        return Author.builder()
-                .authorName(authorName)
-                .age(age)
-                .gender(gender)
-                .build();
-    }
 }

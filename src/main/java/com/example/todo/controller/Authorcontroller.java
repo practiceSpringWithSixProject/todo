@@ -9,10 +9,11 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 public class Authorcontroller {
-    private final AuthorService authorService;
+
+  private final AuthorService authorService;
 
 
-    //회원가입
+  //회원가입
     /*
     post
     http://localhost:8080/author
@@ -22,26 +23,26 @@ public class Authorcontroller {
       "gender": "남자"
     }
      */
-    @PostMapping("/author")
-    public Long createAuthor(@RequestBody AuthorDto authorDto) {
-        return authorService.createAuthor(authorDto);
-    }
+  @PostMapping("/author")
+  public Long createAuthor(@RequestBody AuthorDto authorDto) {
+    return authorService.createAuthor(authorDto);
+  }
 
 
-    //회원 조회
-    @GetMapping("/author/{authorId}")
-    public Long getAuthorId(@PathVariable Long authorId){
-        return authorService.getAuthorId(authorId);
-    }
+  //회원 조회
+  @GetMapping("/author/{authorId}")
+  public Long getAuthorId(@PathVariable Long authorId) {
+    return authorService.getAuthorId(authorId);
+  }
 
-    //회원 정보 업데이트
-    @PutMapping("/author/{authorId}")
-    public Author updateAuthor(@PathVariable Long authorId, @RequestBody AuthorDto authorDto) {
-        return authorService.updateAuthor(authorId,authorDto);
-    }
+  //회원 정보 업데이트
+  @PutMapping("/author/{authorId}")
+  public Author updateAuthor(@PathVariable Long authorId, @RequestBody AuthorDto authorDto) {
+    return authorService.updateAuthor(authorId, authorDto);
+  }
 
-    @DeleteMapping("/author/{authorId}")
-    public Long deleteAuthor(@PathVariable Long authorId){
-        return authorService.deleteAuthor(authorId);
-    }
+  @DeleteMapping("/author/{authorId}")
+  public Long deleteAuthor(@PathVariable Long authorId) {
+    return authorService.deleteAuthor(authorId);
+  }
 }

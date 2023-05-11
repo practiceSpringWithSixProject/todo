@@ -8,8 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface ToDoItemRepository extends JpaRepository<ToDoItem,Long> {
+public interface ToDoItemRepository extends JpaRepository<ToDoItem, Long> {
 
-    @Query("SELECT t from ToDoItem t where t.author.id = :authorId")
-    Optional<List<ToDoItem>> findAllByAuthor_Id(Long authorId);
+  @Query("SELECT t from ToDoItem t where t.author.id = :authorId")
+  Optional<List<ToDoItem>> findAllByAuthor_Id(Long authorId);
 }

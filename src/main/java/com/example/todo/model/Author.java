@@ -11,30 +11,35 @@ import java.util.List;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Author extends Timestamped{
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class Author extends Timestamped {
 
-    @Column // 논리적 열 이름 수정
-    private String authorName;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @Column
-    private int age;
+  @Column // 논리적 열 이름 수정
+  private String authorName;
 
-    @Column
-    @Enumerated(EnumType.STRING)
-    private Gender gender;
+  @Column
+  private int age;
 
-    @OneToMany(mappedBy = "author")// 일치되는 논리적 열 이름으로 수정
-    @JsonIgnore // jakarta의 json 순환 참조 방지
-    private List<ToDoItem> items;
+  @Column
+  @Enumerated(EnumType.STRING)
+  private Gender gender;
 
-    @Builder
-    public Author(String authorName, int age, Gender gender) {
-        this.authorName = authorName;
-        this.age = age;
-        this.gender = gender;
-    }
+  @OneToMany(mappedBy = "author")// 일치되는 논리적 열 이름으로 수정
+  @JsonIgnore // jakarta의 json 순환 참조 방지
+  private List<ToDoItem> items;
+
+  @OneToMany(mappedBy = "author")
+  @JsonIgnore
+  private List<Bucket> buckets;
+
+  @Builder
+  public Author(String authorName, int age, Gender gender) {
+    this.authorName = authorName;
+    this.age = age;
+    this.gender = gender;
+  }
 
 }
