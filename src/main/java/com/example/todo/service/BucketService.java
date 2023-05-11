@@ -19,13 +19,16 @@ public class BucketService implements BucketServiceInterface {
   private final ToDoItemRepository toDoItemRepository;
 
   @Override
-  public Long createBucket(BucketDto bucketDto, Long authorId) {
+  public Bucket createBucket(BucketDto bucketDto, Long authorId) {
+    Author found = authorRepository.findById(authorId)
+        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다"));
 
     Bucket bucket = bucketDto.builder()
         .bucketName(bucketDto.getBucketName())
+        .author(found)
         .build();
 
-    return null;
+    return bucketRepository.save(bucket);
   }
 
   @Override
