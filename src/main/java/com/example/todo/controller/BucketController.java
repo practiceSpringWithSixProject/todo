@@ -1,6 +1,7 @@
 package com.example.todo.controller;
 
 import com.example.todo.dto.BucketDto;
+import com.example.todo.model.Author;
 import com.example.todo.model.Bucket;
 import com.example.todo.model.ToDoItem;
 import com.example.todo.service.BucketService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -32,6 +34,11 @@ public class BucketController {
   @GetMapping("/bucket/{bucketId}")
   public List<ToDoItem> getAllToDoItemsByBucketId(@PathVariable Long bucketId) {
     return bucketService.getTodoItems(bucketId);
+  }
+
+  @GetMapping("/bucket")
+  public Author getAuthorByBucketId(@RequestParam(value = "bucketId") Long bucketId) {
+    return bucketService.getAuthorByBucketId(bucketId);
   }
 
   @PutMapping("/bucket/{bucketId}")
