@@ -27,11 +27,11 @@ public class Author extends Timestamped {
   @Enumerated(EnumType.STRING)
   private Gender gender;
 
-  @OneToMany(mappedBy = "author")// 일치되는 논리적 열 이름으로 수정
+  @OneToMany(mappedBy = "author", orphanRemoval=true)
   @JsonIgnore // jakarta의 json 순환 참조 방지
   private List<ToDoItem> items;
 
-  @OneToMany(mappedBy = "author")
+  @OneToMany(mappedBy = "author", orphanRemoval=true)
   @JsonIgnore
   private List<Bucket> buckets;
 
