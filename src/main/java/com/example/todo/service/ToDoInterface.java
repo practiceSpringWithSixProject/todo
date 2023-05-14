@@ -8,11 +8,11 @@ import java.util.List;
 public interface ToDoInterface {
 
   //CREATE METHODS
-  Long createItem(ToDoItemDto doItemDto, Long userId);
+  ToDoItem createItem(ToDoItemDto doItemDto, Long userId);
 
 
   //READ METHODS
-  Long readItem(Long itemId);
+  ToDoItem readItem(Long itemId);
 
   List<ToDoItem> readItemsByAuthorId(Long authorId);
 

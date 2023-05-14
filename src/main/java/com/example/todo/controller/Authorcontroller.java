@@ -24,14 +24,14 @@ public class Authorcontroller {
     }
      */
   @PostMapping("/author")
-  public Long createAuthor(@RequestBody AuthorDto authorDto) {
+  public Author createAuthor(@RequestBody AuthorDto authorDto) {
     return authorService.createAuthor(authorDto);
   }
 
 
   //회원 조회
   @GetMapping("/author/{authorId}")
-  public Long getAuthorId(@PathVariable Long authorId) {
+  public Author getAuthorId(@PathVariable Long authorId) {
     return authorService.getAuthorId(authorId);
   }
 

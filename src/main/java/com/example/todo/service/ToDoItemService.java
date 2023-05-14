@@ -25,20 +25,20 @@ public class ToDoItemService implements ToDoInterface {
 
   // CREATE METHOD
   @Override
-  public Long createItem(ToDoItemDto doItemDto, Long userId) {
+  public ToDoItem createItem(ToDoItemDto doItemDto, Long userId) {
     Author foundAuthor = authorRepository.findById(userId)
         .orElseThrow(() -> new IllegalArgumentException("회원정보가 없습니다"));
 
     ToDoItem newItem = doItemDto.dtoToEntity(doItemDto, foundAuthor);
 
-    return doItemRepository.save(newItem).getId();
+    return doItemRepository.save(newItem);
   }
 
   // READ METHOD
   @Override
-  public Long readItem(Long itemId) {
+  public ToDoItem readItem(Long itemId) {
     return doItemRepository.findById(itemId)
-        .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다")).getId();
+        .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다"));
   }
 
   @Override

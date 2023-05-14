@@ -17,14 +17,14 @@ public class AuthorService {
 
   private final AuthorRepository authorRepository;
 
-  public Long createAuthor(AuthorDto authorDto) {
+  public Author createAuthor(AuthorDto authorDto) {
     Author newAuthor = authorDto.createAuthor();
-    return authorRepository.save(newAuthor).getId();
+    return authorRepository.save(newAuthor);
   }
 
-  public Long getAuthorId(Long authorId) {
+  public Author getAuthorId(Long authorId) {
     return authorRepository.findById(authorId)
-        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다.")).getId();
+        .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
   }
 
   public Author updateAuthor(Long authorId, AuthorDto authorDto) {
