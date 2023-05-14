@@ -1,6 +1,7 @@
 package com.example.todo.controller;
 
 import com.example.todo.dto.ToDoItemDto;
+import com.example.todo.model.Bucket;
 import com.example.todo.model.ToDoItem;
 import com.example.todo.service.ToDoItemService;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +16,12 @@ public class ItemController {
   private final ToDoItemService itemService;
 
   @PostMapping("/items/{authorId}")
-  public Long createItem(@RequestBody ToDoItemDto requestDto, @PathVariable Long authorId) {
+  public ToDoItem createItem(@RequestBody ToDoItemDto requestDto, @PathVariable Long authorId) {
     return itemService.createItem(requestDto, authorId);
   }
 
   @GetMapping("/items")
-  public Long readOneItem(@RequestParam(value = "itemId") Long itemId) {
+  public ToDoItem readOneItem(@RequestParam(value = "itemId") Long itemId) {
     return itemService.readItem(itemId);
   }
 
