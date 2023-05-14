@@ -22,7 +22,7 @@ public class ResponseEntity<T> {
   }
 
   public static <T> ResponseEntity<T> fail(HttpStatus status, String message) {
-    return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR, null,
+    return new ResponseEntity<>(status, null,
         new Error(status.value(), message));
   }
 
