@@ -59,7 +59,9 @@ public class BucketService implements BucketServiceInterface {
   }
 
   @Override
-  public String getAuthorNameByBucketId(Long bucketId) {
-    return null;
+  public Author getAuthorByBucketId(Long bucketId) {
+    Bucket bucket = bucketRepository.findById(bucketId)
+        .orElseThrow(() -> new IllegalArgumentException("해당 버킷이 존재하지 않습니다"));
+    return bucket.getAuthor();
   }
 }
