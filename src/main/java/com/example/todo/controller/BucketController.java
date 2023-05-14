@@ -2,6 +2,7 @@ package com.example.todo.controller;
 
 import com.example.todo.dto.BucketDto;
 import com.example.todo.model.Bucket;
+import com.example.todo.model.ToDoItem;
 import com.example.todo.service.BucketService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +27,11 @@ public class BucketController {
   @GetMapping("/bucket/{authorId}")
   public List<Bucket> getBucketsByAuthorId(@PathVariable Long authorId) {
     return bucketService.getAllBucketsByAuthorId(authorId);
+  }
+
+  @GetMapping("/bucket/{bucketId}")
+  public List<ToDoItem> getAllToDoItemsByBucketId(@PathVariable Long bucketId) {
+    return bucketService.getTodoItems(bucketId);
   }
 
   @PutMapping("/bucket/{bucketId}")

@@ -33,7 +33,7 @@ public class ItemController {
   @PutMapping("/items/{itemId}")
   public ToDoItem updateItem(@PathVariable Long itemId,
       @RequestParam(value = "bucketId", required = false) Long bucketId,
-      @RequestBody ToDoItemDto dto) {
+      @RequestBody(required = false) ToDoItemDto dto) {
     return itemService.updateTodoItem(dto, itemId, bucketId);
   }
 }
