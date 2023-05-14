@@ -36,8 +36,9 @@ public class BucketService implements BucketServiceInterface {
 
   @Override
   public List<Bucket> getAllBucketsByAuthorId(Long authorId) {
-    return bucketRepository.findAllByAuthor_Id(authorId)
-        .orElseThrow(() -> new IllegalArgumentException("회원 정보가 존재하지 않습니다"));
+    authorRepository.findById(authorId)
+        .orElseThrow(() -> new IllegalArgumentException("회원 정보가 존재하지 않습니다."));
+    return bucketRepository.findAllByAuthor_Id(authorId).orElse(null);
   }
 
   @Override
@@ -55,7 +56,7 @@ public class BucketService implements BucketServiceInterface {
   @Override
   public List<ToDoItem> getTodoItems(Long bucketId) {
     return toDoItemRepository.findAllByBucket_Id(bucketId)
-        .orElseThrow(() -> new IllegalArgumentException("해당 버팃이 존재하지 않습니다."));
+        .orElseThrow(() -> new IllegalArgumentException("해당 버킷이 존재하지 않습니다."));
   }
 
   @Override
