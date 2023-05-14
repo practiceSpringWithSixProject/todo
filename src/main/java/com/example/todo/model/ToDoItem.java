@@ -1,5 +1,6 @@
 package com.example.todo.model;
 
+import com.example.todo.dto.ToDoItemDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -43,4 +44,24 @@ public class ToDoItem extends Timestamped {
   @JoinColumn(name = "bucket_id")
   private Bucket bucket;
 
+
+  public void update(ToDoItemDto dto, Bucket bucket) {
+    if(dto.getTitle()!=null && !dto.getTitle().isBlank() && !dto.getTitle().isEmpty()){
+      this.title = dto.getTitle();
+    }
+    if(dto.getContent()!=null && !dto.getContent().isBlank() && !dto.getContent().isEmpty()){
+      this.content = dto.getContent();
+    }
+    if(dto.getPriorityEnum()!=null){
+      this.priorityEnum = dto.getPriorityEnum();
+    }
+    if(dto.getDeadline()!=null && !dto.getDeadline().toString().isBlank() && !dto.getDeadline().toString().isEmpty()){
+      this.deadline = dto.getDeadline();
+    }
+    this.isCompleted = dto.isComplete();
+    this.bucket = bucket;
+  }
+  public void update(Bucket bucket) {
+    this.bucket = bucket;
+  }
 }

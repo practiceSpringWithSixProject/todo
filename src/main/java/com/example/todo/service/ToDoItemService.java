@@ -52,14 +52,11 @@ public class ToDoItemService implements ToDoInterface {
     ToDoItem foundItem = doItemRepository.findById(itemId)
         .orElseThrow(() -> new IllegalArgumentException("게시글이 존재하지 않습니다"));
     Bucket foundBucket = bucketRepository.findById(bucketId).orElse(null);
-
-    foundItem.setTitle(dto.getTitle());
-    foundItem.setContent(dto.getContent());
-    foundItem.setCompleted(dto.isComplete());
-    foundItem.setPriorityEnum(dto.getPriorityEnum());
-    foundItem.setDeadline(dto.getDeadline());
-    foundItem.setBucket(foundBucket);
-
+    if (dto != null) {
+      foundItem.update(dto, foundBucket);
+    } else {
+      foundItem.update(foundBucket);
+    }
     return foundItem;
   }
 }

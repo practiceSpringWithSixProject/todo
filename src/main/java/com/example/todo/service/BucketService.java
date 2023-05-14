@@ -54,7 +54,8 @@ public class BucketService implements BucketServiceInterface {
 
   @Override
   public List<ToDoItem> getTodoItems(Long bucketId) {
-    return null;
+    return toDoItemRepository.findAllByBucket_Id(bucketId)
+        .orElseThrow(() -> new IllegalArgumentException("해당 버팃이 존재하지 않습니다."));
   }
 
   @Override
